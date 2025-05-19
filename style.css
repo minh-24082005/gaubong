@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    padding:  0  50px;
+    height: 70px;
+    align-items:center;
+}
+.logo{
+    flex: 1;
+}
+.menu{
+    flex: 3;
+    display: flex;
+}
+.menu > li {
+    padding: 0 12px;
+}
+.others {
+    flex :1;
+ display: flex;
+ margin-right: 100px;
+}
+.others > li{
+  padding: 0 12px;
+}
+.others > li:first-child {
+    position: relative;
+}
+.others > li:first-child input{
+    border-radius: 150px;
+     height: 50px;    
+}
+.others > li:first-child i{
+    position: absolute;
+    right:  10px ;
+}
