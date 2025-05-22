@@ -119,7 +119,7 @@
                 </div>
             </nav>
             <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-             @include('admin.Dashboard')
+             @yield('content')
             </main>
         </div>
     </div>
@@ -132,6 +132,7 @@
 
     <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <script src="scripts.js"></script>
+    @yield('scripts')
 </body>
 
 </html>
