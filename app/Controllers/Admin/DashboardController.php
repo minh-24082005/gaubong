@@ -5,6 +5,6 @@ class DashboardController
 {
     public function index()
     {
-        return view('Admin.layout.sidebar');
+        return view('Admin.Dashboard');
     }
 }
