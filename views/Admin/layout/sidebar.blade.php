@@ -53,6 +53,27 @@
                                 <span class="ml-2">Dashboard</span>
                             </a>
                         </li>
+                                                <li class="nav-item">
+                            <a class="nav-link" href="/admin/categories">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-folder">
+                                    <path d="M22 7H12l-2-2H2v14h20V7z"></path>
+                                </svg>
+                                <span class="ml-2">Categories</span>
+                            </a>
+                            </li>
+                                                    <li class="nav-item">
+    <a class="nav-link" href="/admin/product">
+        <!-- Icon hộp sản phẩm -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73L13 3.27a2 2 0 0 0-2 0L4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"></path>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+        <span class="ml-2">products</span>
+    </a>
+</li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -65,18 +86,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="product">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-shopping-cart">
-                                    <circle cx="9" cy="21" r="1"></circle>
-                                    <circle cx="20" cy="21" r="1"></circle>
-                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                                </svg>
-                                <span class="ml-2">Products</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -86,7 +95,30 @@
                                     <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                                 </svg>
-                                <span class="ml-2">Customers</span>
+                                <span class="ml-2">user</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+    <a class="nav-link" href="/admin/banner">
+        <!-- Icon image cho banner -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>
+        <span class="ml-2">Banner</span>
+    </a>
+</li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/bienthe">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-layers">
+                                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                    <polyline points="2 17 12 22 22 17"></polyline>
+                                    <polyline points="2 12 12 17 22 12"></polyline>
+                                </svg>
+                                <span class="ml-2">biến thể</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -101,18 +133,7 @@
                                 <span class="ml-2">Reports</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-layers">
-                                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                    <polyline points="2 17 12 22 22 17"></polyline>
-                                    <polyline points="2 12 12 17 22 12"></polyline>
-                                </svg>
-                                <span class="ml-2">Integrations</span>
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
             </nav>
