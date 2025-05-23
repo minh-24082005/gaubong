@@ -14,6 +14,7 @@ class CategoryController extends Controller
 
     public function index()
     {
+        
       $categories= $this->category->findAll();
       return view('Admin.categories.index',compact('categories'));
 
