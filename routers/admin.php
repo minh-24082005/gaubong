@@ -3,6 +3,7 @@
 use App\Controllers\Admin\CategoryController;
 use App\Controllers\Admin\DashboardController;
 use App\Controllers\Admin\ProductsController;
+use App\Controllers\Admin\BannerController;
 
 $router->mount('/admin',fn:function()use($router){
 $router->get('/',DashboardController::class.'@index');
@@ -22,5 +23,13 @@ $router->post('/product/store',ProductsController::class.'@store');
 $router->get('/product/edit/{id}',ProductsController::class.'@edit');
 $router->post('/product/update/{id}',ProductsController::class.'@update');
 $router->get('/product/delete/{id}',ProductsController::class.'@delete');
-$router->get('/product/{id}',ProductsController::class.'@show');
+$router->get('/product/show/{id}',ProductsController::class.'@show');
+
+$router->get('/banner',BannerController::class.'@index');
+$router->get('/banner/create',BannerController::class.'@create');   
+$router->post('/banner/store',BannerController::class.'@store');
+$router->get('/banner/edit/{id}',BannerController::class.'@edit');
+$router->post('/banner/update/{id}',BannerController::class.'@update');
+$router->get('/banner/delete/{id}',BannerController::class.'@delete');
+$router->get('/banner/{id}',BannerController::class.'@show');
 });

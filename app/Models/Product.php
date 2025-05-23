@@ -59,7 +59,7 @@ public function paginate($page = 1, $limit = 10, $keyword = '')
 }
 
     public function find($id){
-                $querybuilder=$this->connection->createQueryBuilder();
+        $querybuilder=$this->connection->createQueryBuilder();
         $querybuilder
         ->select(
             'p.id p_id',
