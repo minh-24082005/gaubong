@@ -16,6 +16,7 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">ảnh</th>
+                            
                                 
 
                             </tr>
@@ -28,13 +29,13 @@
                
                 <td>{{ $category['created_at'] }}</td>
                 <td>{{ $category['updated_at'] }}</td>
-
+                                <td>
+                                    <a href="/admin/banner/edit/{{ $banner['id'] }}" class="btn btn-warning btn-sm mb-1">Sửa</a>
+                                    <a href="/admin/banner/delete/{{ $banner['id'] }}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</a>
+                                </td>
 
                               
-                                <td>
 
-                                
-                                </td>
                             </tr>
                             @endforeach
                          

@@ -71,7 +71,7 @@ public function update($id)
         'ten' => $_POST['ten'],
         'gia_coso' => $_POST['gia_coso'],
         'hangcosan' => $_POST['hangcosan'],
-        'trang_thai' => $_POST['trang_thai'],
+        'trang_thai' => isset($_POST['trang_thai']) ? $_POST['trang_thai'] : 'hết',
         'ma_hang' => $_POST['ma_hang'],
         'mota' => $_POST['mota'],
         'id_danhmuc' => $_POST['id_danhmuc']
