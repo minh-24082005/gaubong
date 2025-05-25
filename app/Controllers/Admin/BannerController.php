@@ -47,11 +47,11 @@ public function create()
     //     $this->bannerModel->update($id, $data);
     //     return redirect('/admin/banner');
     // }
-    // public function delete($id)
-    // {
-    //     $this->bannerModel->delete($id);
-    //     return redirect('/admin/banner');
-    // }
+    public function delete($id)
+    {
+        $this->bannerModel->delete($id);
+        return redirect('/admin/banner');
+    }
     // public function show($id)
     // {
     //     $banner = $this->bannerModel->find($id);

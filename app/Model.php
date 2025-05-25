@@ -28,7 +28,7 @@ class Model
     public function findAll()
     {
         $querybuilder = $this->connection->createQueryBuilder();
-        $querybuilder->select('*')->from($this->tableName);
+        $querybuilder->select('*')->from($this->tableName)->orderBy('id', 'DESC');;
         return $querybuilder->fetchAllAssociative();
     }
 
