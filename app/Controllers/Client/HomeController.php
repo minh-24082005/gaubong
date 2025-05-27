@@ -6,6 +6,7 @@ use App\Models\Banner;
 use App\Models\Product;
 
 
+
 class HomeController extends Controller
 {
     private Product $product;

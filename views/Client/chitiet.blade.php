@@ -20,7 +20,7 @@
         <div class="col-md-6 col-lg-6 ftco-animate">
           <h3>{{ $product['p_ten'] }}</h3>
           
-          <form id="variant-form">
+<form id="variant-form">
   <div class="form-group">
     <label for="kichco">Chọn kích cỡ:</label>
     <select id="kichco" class="form-control">
@@ -39,19 +39,21 @@
     {{ isset($variants[0]) ? number_format($variants[0]['gia'], 0, ',', '.') . ' VND' : number_format($product['p_gia_coso'], 0, ',', '.') . ' VND' }}
   </p>
   <p id="soluong-hien-thi">
-    {{ isset($variants[0]) ? 'Số lượng: ' . $variants[0]['soluong'] : 'Chưa có số lượng' }}
+    {{ isset($variants[0]) ? 'Số lượng: ' . $variants[0]['soluong'] : 'hết hàng' }}
   </p>
-<div class="form-group">
-  <label for="so_luong">Chọn số lượng:</label>
-  <input type="number" id="so_luong" name="so_luong" class="form-control" min="1"
-         max="{{ isset($variants[0]) ? $variants[0]['soluong'] : 1 }}"
-         value="1">
-</div>
 
+  <div class="form-group">
+    <label for="so_luong">Chọn số lượng:</label>
+    <input type="number" id="so_luong" name="so_luong" class="form-control" min="0"
+           max="{{ isset($variants[0]) ? $variants[0]['soluong'] : 0 }}"
+           value="0">
+  </div>
+
+  <button type="button" id="add-to-cart" class="btn btn-primary">Thêm vào giỏ hàng</button>
+  <div id="cart-message" class="mt-3 text-success" style="display: none;">
+    ✅ Đã thêm vào giỏ hàng thành công!
+  </div>
 </form>
-
-
-          <button type="button" class="btn btn-primary">Thêm vào giỏ hàng</button>
         </div>
       </div>
     </div>
@@ -83,14 +85,29 @@ document.getElementById('kichco').addEventListener('change', function () {
     document.getElementById('gia-hien-thi').textContent = parseInt(gia).toLocaleString('vi-VN') + ' VND';
     document.getElementById('soluong-hien-thi').textContent = 'Số lượng: ' + soluong;
 
-    // Cập nhật input số lượng tối đa
     const soLuongInput = document.getElementById('so_luong');
     soLuongInput.max = soluong;
     if (parseInt(soLuongInput.value) > parseInt(soluong)) {
-        soLuongInput.value = soluong; // Giới hạn lại nếu lớn hơn tồn kho
+        soLuongInput.value = soluong;
     }
 });
-</script>
 
+// ✅ Xử lý khi click nút "Thêm vào giỏ hàng"
+document.getElementById('add-to-cart').addEventListener('click', function () {
+    // Hiển thị thông báo
+    const message = document.getElementById('cart-message');
+    message.style.display = 'block';
+    setTimeout(() => {
+        message.style.display = 'none';
+    }, 2500);
+
+    // 👉 Cập nhật số lượng trên icon giỏ hàng
+    const cartCountElement = document.getElementById('cart-count');
+    let currentCount = parseInt(cartCountElement.textContent.replace(/\D/g, '')) || 0;
+    let addedQuantity = parseInt(document.getElementById('so_luong').value) || 1;
+    let newCount = currentCount + addedQuantity;
+    cartCountElement.textContent = `[${newCount}]`;
+});
+</script>
 
 @endsection       

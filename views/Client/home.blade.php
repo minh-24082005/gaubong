@@ -1,7 +1,11 @@
 @extends('Client.layouts.main')
 @section('content')
 <body class="goto-here">
-	
+	<form method="GET" action="">
+    <input type="text" name="keyword" placeholder="Tìm kiếm..." value="{{ $keyword }}"> 
+    <button type="submit">tìm kiếm</button>
+</form>
+
     <section class="ftco-section">
 			<div class="container">
 				<div class="row no-gutters ftco-services">
@@ -66,41 +70,48 @@
     </div>
     <div class="container">
       <div class="row">
-        @foreach ($products as $product)
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="product">
-              <a href="#" class="img-prod">
-                <img class="img-fluid" src="{{ file_url($product['hinhanh']) }}" alt="{{ $product['ten'] }}">
-                <div class="overlay"></div>  
-              </a>
-              <div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">{{ $product['ten'] }}</a></h3>
-                <div class="d-flex justify-content-center">
-                  <div class="pricing">
-                    <p class="price"><span class="price-sale">{{ number_format($product['gia_coso'], 0, ',', '.') }} VND</span></p>
-                  </div>
-                </div>
-                <div class="bottom-area d-flex px-3">
-                  <div class="m-auto d-flex">
-                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                      <span><i class="ion-ios-menu"></i></span>
-                    </a>
-                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                      <span><i class="ion-ios-cart"></i></span>
-                    </a>
-                    <a href="#" class="heart d-flex justify-content-center align-items-center">
-                      <span><i class="ion-ios-heart"></i></span>
-                    </a>
-                  </div>
-                </div>
+		  
+ @if ($page == 1)
+  <h1 class="mt-5 mb-4 text-center">Sản phẩm hót</h1>
+  <div class="row">
+    @foreach ($products as $product)
+      <div class="col-md-6 col-lg-3 ftco-animate">
+        <div class="product">
+          <a href="#" class="img-prod">
+            <img class="img-fluid" src="{{ file_url($product['hinhanh']) }}" alt="{{ $product['ten'] }}">
+            <div class="overlay"></div>  
+          </a>
+          <div class="text py-3 pb-4 px-3 text-center">
+            <h3><a href="#">{{ $product['ten'] }}</a></h3>
+            <div class="d-flex justify-content-center">
+              <div class="pricing">
+                <p class="price"><span class="price-sale">{{ number_format($product['gia_coso'], 0, ',', '.') }} VND</span></p>
+              </div>
+            </div>
+            <div class="bottom-area d-flex px-3">
+              <div class="m-auto d-flex">
+                <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                  <span><i class="ion-ios-menu"></i></span>
+                </a>
+                <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                  <span><i class="ion-ios-cart"></i></span>
+                </a>
+                <a href="#" class="heart d-flex justify-content-center align-items-center">
+                  <span><i class="ion-ios-heart"></i></span>
+                </a>
               </div>
             </div>
           </div>
-        @endforeach
+        </div>
+      </div>
+    @endforeach
+  </div>
+@endif
+
       </div>
 
-      <h1 class="mt-5 mb-4 text-center">Sản phẩm</h1>
-
+    
+<h1>sản phẩm</h1>
       <div class="row">
         @foreach ($productss as $product)
           <div class="col-md-6 col-lg-3 ftco-animate">
@@ -159,4 +170,5 @@
     </div>
   </section>
 </body>
+
 @endsection

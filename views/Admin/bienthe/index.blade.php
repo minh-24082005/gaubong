@@ -1,10 +1,10 @@
 @extends('Admin.layout.sidebar')
 @section('content')
     <h1>Danh sách biến thể</h1>
-    <a href="/admin/bienthe/create" class="btn btn-sm btn-success">Thêm sản phẩm</a>
+    
     <div class="row">
         <div class="col-12 col-xl-15 mb-4 mb-lg-0">
-            <div class="card">
+            <div class="card"><a href="/admin/bienthe/create"  class="btn btn-sm btn-success">create</a>
                 <h5 class="card-header">Danh sách biến thể</h5>
                 <div class="card-body">
                     <div class="table-responsive">
