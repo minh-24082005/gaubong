@@ -1,6 +1,6 @@
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="/"><img src="https://bemori.vn/wp-content/uploads/2024/06/Logo-trang-chu-Mobile-1.webp" alt=""></a>
+	      <a class="navbar-brand" href="/">Vegefoods</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -21,7 +21,7 @@
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
 
 	        </ul>
 	      </div>
@@ -31,27 +31,18 @@
 
 
 
-<section id="home-section" class="hero">
-  <div id="bannerCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="2000">
-    <div class="carousel-inner">
-      @foreach($banners as $index => $value)
-        <div class="carousel-item @if($index == 0) active @endif">
-          <img src="{{ file_url($value['anh']) }}" class="d-block w-100" alt="Image {{ $index }}">
-        </div>
-      @endforeach
+
+    <section id="home-section" class="hero">
+		  <div class="home-slider owl-carousel">
+	      <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
+            
+	        @foreach($banners as $index => $product)
+    <div class="carousel-item @if($index == 0) active @endif">
+        <img src="{{ file_url($product['anh']) }}" class="d-block w-100" alt="Image {{ $index }}">
     </div>
+@endforeach
+	      </div>
+	    </div>
+    </section>
 
-    <!-- Optional controls -->
-    <a class="carousel-control-prev" href="#bannerCarousel" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#bannerCarousel" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-</section>
-
-
-
+    

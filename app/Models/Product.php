@@ -4,12 +4,11 @@ namespace App\Models;
 use App\Model;
  class Product extends Model{
     protected $tableName='product';
-public function paginate($page = 1, $limit = 10, $keyword = '')
+public function paginate($page = 1, $limit = 10, $keyword = '', $category_id = 0)
 {
     $offset = ($page - 1) * $limit;
     $params = [];
 
-    // Query danh sách sản phẩm
     $qb = $this->connection->createQueryBuilder()
         ->select(
             'p.id p_id', 'p.ten p_ten',
@@ -26,9 +25,15 @@ public function paginate($page = 1, $limit = 10, $keyword = '')
         ->from($this->tableName, 'p')
         ->innerJoin('p', 'category', 'c', 'c.id = p.id_danhmuc');
 
+    // Điều kiện lọc
     if ($keyword !== '') {
-        $qb->where('p.ten LIKE :keyword');
+        $qb->andWhere('p.ten LIKE :keyword');
         $params['keyword'] = "%$keyword%";
+    }
+
+    if ($category_id > 0) {
+        $qb->andWhere('p.id_danhmuc = :category_id');
+        $params['category_id'] = $category_id;
     }
 
     $qb->orderBy('p.id', 'DESC')
@@ -38,14 +43,19 @@ public function paginate($page = 1, $limit = 10, $keyword = '')
 
     $data = $qb->fetchAllAssociative();
 
-    // Query tổng số sản phẩm
+    // Query đếm tổng số sản phẩm có lọc
     $countQb = $this->connection->createQueryBuilder()
         ->select('COUNT(*)')
         ->from($this->tableName, 'p');
 
     if ($keyword !== '') {
-        $countQb->where('p.ten LIKE :keyword');
+        $countQb->andWhere('p.ten LIKE :keyword');
         $countQb->setParameter('keyword', "%$keyword%");
+    }
+
+    if ($category_id > 0) {
+        $countQb->andWhere('p.id_danhmuc = :category_id');
+        $countQb->setParameter('category_id', $category_id);
     }
 
     $totalPage = ceil($countQb->fetchOne() / $limit);
@@ -190,6 +200,23 @@ public function paginateClien($page = 1, $limit = 10, $keyword = '', $order = 'D
         ->setParameter('id', $id);
 
     return $querybuilder->fetchAllAssociative();
+}
+
+//// lọc sp danh mục
+public function paginateByCategory($category_id, $limit, $offset)
+{
+    $sql = "SELECT * FROM products WHERE category_id = ? LIMIT ? OFFSET ?";
+    $stmt = $this->connection->prepare($sql);
+    $stmt->execute([$category_id, $limit, $offset]);
+    return $stmt->fetchAll();
+}
+
+public function countByCategory($category_id)
+{
+    $sql = "SELECT COUNT(*) as total FROM products WHERE category_id = ?";
+    $stmt = $this->connection->prepare($sql);
+    $stmt->execute([$category_id]);
+    return $stmt->fetch()['total'];
 }
 
  }
