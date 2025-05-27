@@ -153,9 +153,43 @@ public function paginateClien($page = 1, $limit = 10, $keyword = '', $order = 'D
         'totalPage' => $totalPage
     ];
 }
+//////////////////////////////////////
 
+    public function getProductOnlyActive(){
+        $querybuilder=$this->connection->createQueryBuilder();
+        $querybuilder
+        ->select('*')
+        ->from($this->tableName);
+        return $querybuilder->fetchAllAssociative();
+    }
 
+    public function chitiet_bienthe($id)
+{
+    $querybuilder = $this->connection->createQueryBuilder();
 
+    $querybuilder
+        ->select(
+            'p.id p_id',
+            'p.id_danhmuc p_id_danhmuc',
+            'p.ten p_ten',
+            'c.ten c_ten',
+            'p.gia_coso p_gia_coso',
+            'p.hangcosan p_hangcosan',
+            'p.trang_thai p_trang_thai',
+            'p.hinhanh p_hinhanh',
+            'p.ma_hang p_ma_hang',
+            'p.mota p_mota',
+            'p.created_at p_created_at',
+            'p.updated_at p_updated_at',
+            'b.id b_id',
 
+        )
+        ->from($this->tableName, 'p')
+        ->innerJoin('p', 'category', 'c', 'c.id = p.id_danhmuc')
+        ->where('p.id = :id')
+        ->setParameter('id', $id);
+
+    return $querybuilder->fetchAllAssociative();
+}
 
  }

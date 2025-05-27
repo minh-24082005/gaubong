@@ -1,7 +1,7 @@
   @extends('Admin.layout.sidebar')
 @section('content')
     <h1>Danh sách danh mục</h1>
-<a href="/admin/categories/create">thêm danh mục</a>
+
 
 
     <div class="row">
