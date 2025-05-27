@@ -4,6 +4,7 @@ use App\Controllers\Admin\CategoryController;
 use App\Controllers\Admin\DashboardController;
 use App\Controllers\Admin\ProductsController;
 use App\Controllers\Admin\BannerController;
+use App\Controllers\Admin\BientheController;
 
 $router->mount('/admin',fn:function()use($router){
 $router->get('/',DashboardController::class.'@index');
@@ -32,4 +33,12 @@ $router->get('/banner/edit/{id}',BannerController::class.'@edit');
 $router->post('/banner/update/{id}',BannerController::class.'@update');
 $router->get('/banner/delete/{id}',BannerController::class.'@delete');
 $router->get('/banner/{id}',BannerController::class.'@show');
+
+
+$router->get('/bienthe',BientheController::class.'@index');
+$router->get('/bienthe/create',BientheController::class.'@create');
+$router->post('/bienthe/store',BientheController::class.'@store');
+$router->get('/bienthe/edit/{id}',BientheController::class.'@edit');
+$router->post('/bienthe/update/{id}',BientheController::class.'@update');
+$router->get('/bienthe/delete/{id}',BientheController::class.'@delete');
 });

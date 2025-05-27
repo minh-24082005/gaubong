@@ -29,9 +29,9 @@ class ProductsController extends Controller
     }
     public function create()
     {
-        $product = $this->product->findAll();
+
         $categories = $this->category->getCategoryOnlyActive();
-        return view('Admin.products.create', compact('categories','product'));
+        return view('Admin.products.create', compact('categories'));
 
 
     }
