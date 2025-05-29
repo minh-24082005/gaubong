@@ -1,5 +1,6 @@
 <?php 
 namespace App\Models;
+use Doctrine\DBAL\ParameterType;
 
 use App\Model;
  class Product extends Model{
@@ -203,20 +204,37 @@ public function paginateClien($page = 1, $limit = 10, $keyword = '', $order = 'D
 }
 
 //// lọc sp danh mục
-public function paginateByCategory($category_id, $limit, $offset)
+
+
+public function paginateByCategory($id_danhmuc, $limit, $offset)
 {
-    $sql = "SELECT * FROM products WHERE category_id = ? LIMIT ? OFFSET ?";
-    $stmt = $this->connection->prepare($sql);
-    $stmt->execute([$category_id, $limit, $offset]);
-    return $stmt->fetchAll();
+    $sql = "SELECT * FROM product WHERE id_danhmuc = :id_danhmuc LIMIT :limit OFFSET :offset";
+    $result = $this->connection->executeQuery($sql, [
+        'id_danhmuc' => $id_danhmuc,
+        'limit' => $limit,
+        'offset' => $offset,
+    ], [
+        'id_danhmuc' => ParameterType::INTEGER,
+        'limit' => ParameterType::INTEGER,
+        'offset' => ParameterType::INTEGER,
+    ]);
+
+    return $result->fetchAllAssociative();
 }
 
-public function countByCategory($category_id)
+
+public function countByCategory($id_danhmuc)
 {
-    $sql = "SELECT COUNT(*) as total FROM products WHERE category_id = ?";
-    $stmt = $this->connection->prepare($sql);
-    $stmt->execute([$category_id]);
-    return $stmt->fetch()['total'];
+    $sql = "SELECT COUNT(*) as total FROM product WHERE id_danhmuc = :id_danhmuc";
+    $result = $this->connection->executeQuery($sql, [
+        'id_danhmuc' => $id_danhmuc
+    ], [
+        'id_danhmuc' => \Doctrine\DBAL\ParameterType::INTEGER
+    ]);
+
+    return $result->fetchAssociative()['total'];
 }
+
+
 
  }

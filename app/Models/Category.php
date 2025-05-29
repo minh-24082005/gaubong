@@ -1,6 +1,6 @@
 <?php
 namespace App\Models;
-
+use Doctrine\DBAL\ParameterType;
 use App\Model;
 
 class Category extends Model{
@@ -14,6 +14,17 @@ class Category extends Model{
     }
 
 
+public function find($id)
+{
+    $sql = "SELECT * FROM category WHERE id = :id";
+    $result = $this->connection->executeQuery($sql, [
+        'id' => $id
+    ], [
+        'id' => ParameterType::INTEGER
+    ]);
+
+    return $result->fetchAssociative();
+}
 
 
 

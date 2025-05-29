@@ -1,12 +1,30 @@
 @extends('Client.layouts.main')
 @section('content')
 <body class="goto-here">
-	<form method="GET" action="">
-    <input type="text" name="keyword" placeholder="Tìm kiếm..." value="{{ $keyword }}"> 
-    <button type="submit">tìm kiếm</button>
-</form>
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="GET" action="" class="d-flex">
+                <input type="text" name="keyword" class="form-control me-2" placeholder="Tìm kiếm..." value="{{ $keyword }}">
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-    <section class="ftco-section">
+
+
+
+  <section class="ftco-section">
+
+
+     
+  
+    <div class="container">
+      <div class="row">
+		  
+ @if (empty($keyword) &&$page == 1)
+
 			<div class="container">
 				<div class="row no-gutters ftco-services">
           <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
@@ -54,24 +72,14 @@
             </div>      
           </div>
         </div>
-			</div>       
-          
-      
-		</section>
-  <section class="ftco-section">
-    <div class="container">
-      <div class="row justify-content-center mb-3 pb-3">
-        <div class="col-md-12 heading-section text-center ftco-animate">
+			</div> 
+      <br><br><br>
+              <div class="col-md-12 heading-section text-center ftco-animate">
           <span class="subheading">Featured Products</span>
           <h2 class="mb-4">Our Products</h2>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-        </div>
-      </div>         
-    </div>
-    <div class="container">
-      <div class="row">
-		  
- @if ($page == 1)
+        </div>      
+	
+ 
   <h1 class="mt-5 mb-4 text-center">Sản phẩm hót</h1>
   <div class="row">
     @foreach ($products as $product)
@@ -110,8 +118,9 @@
 
       </div>
 
-    
+
 <h1>sản phẩm</h1>
+
       <div class="row">
         @foreach ($productss as $product)
           <div class="col-md-6 col-lg-3 ftco-animate">
@@ -144,7 +153,8 @@
             </div>
           </div>
         @endforeach
-      </div> <!-- kết thúc row sản phẩm cũ -->
+      </div>
+   <!-- kết thúc row sản phẩm cũ -->
 
       <!-- Phân trang nằm dưới các sản phẩm, căn giữa -->
       <div class="container text-center mt-4">
