@@ -1,6 +1,8 @@
 @extends('Client.layouts.main')
 
 @section('content')
+<h2>chọn kích thước</h2>
+
 <div class="container mt-4">
 
     {{-- Hiển thị danh sách danh mục --}}
