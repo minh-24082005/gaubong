@@ -7,17 +7,9 @@
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="shop.html">Shop</a>
-              	<a class="dropdown-item" href="wishlist.html">Wishlist</a>
-                <a class="dropdown-item" href="product-single.html">Single Product</a>
-                <a class="dropdown-item" href="cart.html">Cart</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>
-              </div>
-            </li>
+	          <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
+	          <li class="nav-item active"><a href="/danhmuc" class="nav-link">danh mục</a></li>
+	    
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
@@ -34,14 +26,12 @@
 
     <section id="home-section" class="hero">
 		  <div class="home-slider owl-carousel">
-	      <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
-            
-	        @foreach($banners as $index => $product)
-    <div class="carousel-item @if($index == 0) active @endif">
-        <img src="{{ file_url($product['anh']) }}" class="d-block w-100" alt="Image {{ $index }}">
-    </div>
+
+@foreach($banners as $product)
+  <div class="slider-item" style="background-image: url('{{ file_url($product['anh']) }}');"></div>
 @endforeach
-	      </div>
+
+
 	    </div>
     </section>
 
