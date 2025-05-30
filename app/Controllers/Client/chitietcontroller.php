@@ -22,15 +22,33 @@ class ChitietController extends Controller
         
     }
 
-    public function index($id)
-    {
-        $product = $this->product->find($id);
-        $categories = $this->category->getCategoryOnlyActive();
-        $bienthes=$this->bienthe->bientheAll();
-            $variants = $this->bienthe->getByProductId($id);
-         $banners = $this->banner->findAll();
-        return view('Client.chitiet', compact('product', 'categories', 'banners','bienthes', 'variants'));
+public function index($id)
+{
+    if (!$id || !is_numeric($id)) {
+        return redirect('/'); // hoặc hiển thị lỗi 404
     }
+
+    $product = $this->product->find($id);
+    if (!$product) {
+        return redirect('/'); // hoặc hiển thị lỗi 404
+    }
+
+    $categories = $this->category->getCategoryOnlyActive();
+    $bienthes = $this->bienthe->bientheAll();
+    $variants = $this->bienthe->getByProductId($id);
+    $relatedProducts = $this->product->sp_dm($id, $product['p_id_danhmuc']);
+    $banners = $this->banner->findAll();
+
+    return view('Client.chitiet', compact(
+        'product',
+        'categories',
+        'banners',
+        'bienthes',
+        'variants',
+        'relatedProducts'
+    ));
+}
+
 
 
 }

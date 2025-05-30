@@ -19,56 +19,54 @@ class HomeController extends Controller
         $this->product = new Product();
         $this->category = new Category(); // Assuming you have a Category model
     }
-  public function index()
-{
-    $products= $this->product->getLatest(4);
-    $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-    $limit = 8;
-    $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+    public function index()
+    {
+        $products = $this->product->getLatest(4);
+        $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+        $limit = 8;
+        $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 
-    $result = $this->product->paginateClien($page, $limit, $keyword, 'ASC'); // chắc chắn gọi paginateClien
-    $productss = $result['data'];
-    $totalPage = $result['totalPage'];
+        $result = $this->product->paginateClien($page, $limit, $keyword, 'ASC'); // chắc chắn gọi paginateClien
+        $productss = $result['data'];
+        $totalPage = $result['totalPage'];
 
-    $banners = $this->banner->findAll();
+        $banners = $this->banner->findAll();
 
-    return view('Client.home', compact('products', 'banners', 'productss', 'page', 'limit', 'totalPage', 'keyword'));
-}
+        return view('Client.home', compact('products', 'banners', 'productss', 'page', 'limit', 'totalPage', 'keyword'));
+    }
 
 
 public function danhmuc()
 {
-    // Lấy ID danh mục từ query string
-    $category_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $limit = 2;
+    $category_id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+    $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+    $limit = 8;
+// tìm kiếm
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : 'asc';
+    $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
 
-    
-    $offset = ($page - 1) * $limit;
+    // Lấy sản phẩm theo tất cả điều kiện
+    // lọc
+    $result = $this->product->paginateClientFull($page, $limit, $category_id, $keyword, $sort);
 
-    // Lấy danh sách sản phẩm theo danh mục
-    $products = $this->product->paginateByCategory($category_id, $limit, $offset);
-    $totalProduct = $this->product->countByCategory($category_id);
-    $totalPage = ceil($totalProduct / $limit);
+    $products = $result['data'];
+    $totalPage = $result['totalPage'];
 
-    // Lấy thông tin danh mục nếu cần
     $category = $this->category->findAll();
-    $productss=$this->product->findAll();
-    // Truyền ra view
     $banners = $this->banner->findAll();
 
     return view('Client.danhmuc', compact(
         'products',
         'category',
-        'page',
-        'totalPage',
-        'limit',
-        'totalProduct',
-        'category_id',
         'banners',
-        'productss'
+        'category_id',
+        'keyword',
+        'sort',
+        'page',
+        'totalPage'
     ));
 }
+
 
 
 
