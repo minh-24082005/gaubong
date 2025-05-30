@@ -234,6 +234,65 @@ public function countByCategory($id_danhmuc)
 
     return $result->fetchAssociative()['total'];
 }
+public function sp_dm($product_id, $category_id, $limit = 5)
+{
+    $qb = $this->connection->createQueryBuilder();
+
+    return $qb->select(
+            'p.id p_id',
+            'p.ten p_ten',
+            'p.gia_coso p_gia_coso',
+            'p.hinhanh p_hinhanh'
+        )
+        ->from($this->tableName, 'p')
+        ->where('p.id_danhmuc = :id_danhmuc') 
+        ->andWhere('p.id != :id_sanpham')     
+        ->orderBy('p.created_at', 'DESC')
+        ->setMaxResults($limit)
+        ->setParameters([
+            'id_danhmuc' => $category_id,
+            'id_sanpham' => $product_id
+        ])
+        ->fetchAllAssociative();
+}
+
+public function paginateClientFull($page = 1, $limit = 8, $category_id = 0, $keyword = '', $sort = 'asc')
+{
+    $offset = ($page - 1) * $limit;
+    $where = [];
+    $params = [];
+
+    if ($category_id > 0) {
+        $where[] = 'p.danhmuc_id = :cat';
+        $params['cat'] = $category_id;
+    }
+    if ($keyword !== '') {
+        $where[] = 'p.ten LIKE :kw';
+        $params['kw'] = "%$keyword%";
+    }
+
+    $sqlWhere = $where ? implode(' AND ', $where) : '1=1';
+    $order = strtolower($sort) === 'desc' ? 'DESC' : 'ASC';
+
+    $qb = $this->connection->createQueryBuilder()
+        ->select('p.*')
+        ->from($this->tableName, 'p')
+        ->where($sqlWhere)
+        ->setFirstResult($offset)
+        ->setMaxResults($limit)
+        ->orderBy('p.gia_coso', $order);
+    foreach ($params as $k => $v) $qb->setParameter($k, $v);
+    $data = $qb->fetchAllAssociative();
+
+    $count = $this->connection->createQueryBuilder()
+        ->select('COUNT(*)')
+        ->from($this->tableName, 'p')
+        ->where($sqlWhere);
+    foreach ($params as $k => $v) $count->setParameter($k, $v);
+    $total = (int) $count->fetchOne();
+
+    return ['data' => $data, 'totalPage' => ceil($total / $limit)];
+}
 
 
 
