@@ -1,10 +1,11 @@
 <?php
 
-use App\Controllers\Admin\CategoryController;
-use App\Controllers\Admin\DashboardController;
-use App\Controllers\Admin\ProductsController;
+use App\Controllers\Admin\UserController;
 use App\Controllers\Admin\BannerController;
 use App\Controllers\Admin\BientheController;
+use App\Controllers\Admin\CategoryController;
+use App\Controllers\Admin\ProductsController;
+use App\Controllers\Admin\DashboardController;
 
 $router->mount('/admin',fn:function()use($router){
 $router->get('/',DashboardController::class.'@index');
@@ -41,4 +42,12 @@ $router->post('/bienthe/store',BientheController::class.'@store');
 $router->get('/bienthe/edit/{id}',BientheController::class.'@edit');
 $router->post('/bienthe/update/{id}',BientheController::class.'@update');
 $router->get('/bienthe/delete/{id}',BientheController::class.'@delete');
+
+$router->get('/users',UserController::class.'@index');
+$router->get('/users/create',UserController::class.'@create');
+$router->post('/users/store',UserController::class.'@store');
+$router->get('/users/edit/{id}',UserController::class.'@edit');
+$router->post('/users/update/{id}',UserController::class.'@update');
+$router->get('/users/delete/{id}',UserController::class.'@delete');
+$router->get('/users/{id}',UserController::class.'@show');
 });
