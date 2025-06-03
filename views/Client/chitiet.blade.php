@@ -12,6 +12,7 @@
         </div>
       </div>         
     </div>
+    <form id="variant-form">
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-lg-6 ftco-animate">
@@ -20,7 +21,7 @@
         <div class="col-md-6 col-lg-6 ftco-animate">
           <h3>{{ $product['p_ten'] }}</h3>
           
-<form id="variant-form">
+
   <div class="form-group">
     <label for="kichco">Chọn kích cỡ:</label>
     <select id="kichco" class="form-control">
