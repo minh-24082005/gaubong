@@ -81,8 +81,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                </tbody>
-                                <tfoot>
+                                     <tfoot>
                                     <tr>
                                         <th>STT</th>
                                         <th>Họ và tên</th>
