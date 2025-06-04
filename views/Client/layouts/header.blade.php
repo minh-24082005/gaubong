@@ -15,7 +15,7 @@
         <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
         <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
         <li class="nav-item cta cta-colored">
-          <a href="cart.html" class="nav-link">Giỏ hàng <span class="icon-shopping_cart"></span></a>
+          <a href="/giohang" class="nav-link">Giỏ hàng <span class="icon-shopping_cart"></span></a>
         </li>
 
         {{-- Kiểm tra đăng nhập --}}
