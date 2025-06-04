@@ -182,34 +182,38 @@ class Product extends Model
         return $querybuilder->fetchAllAssociative();
     }
 
-    public function chitiet_bienthe($id)
-    {
-        $querybuilder = $this->connection->createQueryBuilder();
+   public function chitiet_bienthe($id)
+{
+    $querybuilder = $this->connection->createQueryBuilder();
 
-        $querybuilder
-            ->select(
-                'p.id p_id',
-                'p.id_danhmuc p_id_danhmuc',
-                'p.ten p_ten',
-                'c.ten c_ten',
-                'p.gia_coso p_gia_coso',
-                'p.hangcosan p_hangcosan',
-                'p.trang_thai p_trang_thai',
-                'p.hinhanh p_hinhanh',
-                'p.ma_hang p_ma_hang',
-                'p.mota p_mota',
-                'p.created_at p_created_at',
-                'p.updated_at p_updated_at',
-                'b.id b_id',
+    $querybuilder
+        ->select(
+            'p.id p_id',
+            'p.id_danhmuc p_id_danhmuc',
+            'p.ten p_ten',
+            'c.ten c_ten',
+            'p.gia_coso p_gia_coso',
+            'p.hangcosan p_hangcosan',
+            'p.trang_thai p_trang_thai',
+            'p.hinhanh p_hinhanh',
+            'p.ma_hang p_ma_hang',
+            'p.mota p_mota',
+            'p.created_at p_created_at',
+            'p.updated_at p_updated_at',
+            'b.id b_id',
+            'b.kich_co b_kich_co',
+            'b.gia b_gia',
+            'b.soluong b_soluong'
+        )
+        ->from($this->tableName, 'p')
+        ->innerJoin('p', 'category', 'c', 'c.id = p.id_danhmuc')
+        ->innerJoin('p', 'productvariant', 'b', 'b.id_sanpham = p.id') // ✅ Thêm join bảng productvariant
+        ->where('b.id = :id') // ✅ Sửa lại điều kiện tìm theo ID biến thể
+        ->setParameter('id', $id);
 
-            )
-            ->from($this->tableName, 'p')
-            ->innerJoin('p', 'category', 'c', 'c.id = p.id_danhmuc')
-            ->where('p.id = :id')
-            ->setParameter('id', $id);
+    return $querybuilder->fetchAssociative();
+}
 
-        return $querybuilder->fetchAllAssociative();
-    }
 
     //// lọc sp danh mục
 

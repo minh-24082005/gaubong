@@ -92,6 +92,17 @@ class Model
 
     public function commit()
     {
-        $this->connection->rollBack();
+        $this->connection->commit();
     }
+    public function where($column, $value)
+{
+    $qb = $this->connection->createQueryBuilder();
+    $qb->select('*')->from($this->tableName)->where("{$column} = :value")->setParameter('value', $value);
+    return $qb->fetchAllAssociative();
+}
+public function getConnection()
+{
+    return $this->connection;
+}
+
 }
