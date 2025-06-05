@@ -275,7 +275,7 @@ class Product extends Model
         $params = [];
 
         if ($category_id > 0) {
-            $where[] = 'p.danhmuc_id = :cat';
+            $where[] = 'p.id_danhmuc = :cat';
             $params['cat'] = $category_id;
         }
         if ($keyword !== '') {

@@ -140,38 +140,39 @@
 
 {{-- Điều khiển modal hiển thị sau khi đăng ký --}}
 @if(isset($_SESSION['msg']))
- <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+  <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999;">
     <div id="toastNotify" class="toast align-items-center text-white {{ $_SESSION['status'] ? 'bg-success' : 'bg-danger' }} border-0 show" role="alert">
       <div class="d-flex">
         <div class="toast-body">
           {{ $_SESSION['msg'] }}
         </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">X</button>
       </div>
     </div>
   </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      @if($_SESSION['status'])
-        // ✅ Nếu đăng ký thành công → Hiện modal đăng nhập
+      @if(isset($_SESSION['action']) && $_SESSION['action'] === 'login')
+        // 👇 Nếu cần hiển thị modal đăng nhập
         const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
         loginModal.show();
-      @else
-        // ❌ Nếu đăng ký thất bại → Hiện lại modal đăng ký
+      @elseif(!$_SESSION['status'])
+        // 👇 Nếu là lỗi đăng ký → hiện modal đăng ký
         const registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
         registerModal.show();
       @endif
-      
     });
   </script>
+
+  @php
+    unset($_SESSION['msg']);
+    unset($_SESSION['status']);
+    unset($_SESSION['action']);
+    unset($_SESSION['data']);
+  @endphp
 @endif
 
-{{-- Xoá session để tránh lặp --}}
-@php
-  unset($_SESSION['msg']);
-  unset($_SESSION['status']);
-  unset($_SESSION['data']);
-@endphp
 
 <!-- Banner -->
 <section id="home-section" class="hero">
