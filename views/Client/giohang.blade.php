@@ -11,22 +11,39 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>ảnh</th>
                             <th>Tên sản phẩm</th>
                             <th>Kích cỡ</th>
                             <th>Số lượng</th>
+                            <th>số lượng</th> 
                             <th>Giá</th>
+                           
                             <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
 @foreach ($giohang as $item)
 <tr>
-    <td><img src="/path/to/uploads/{{ $item['hinhanh'] }}" width="50"></td>
+<td><img src="{{ file_url($item['hinhanh']) }}" width="50"></td>
     <td>{{ $item['product_name'] }}</td>
     <td>{{ $item['kich_co'] }}</td>
     <td>{{ number_format($item['gia'], 0, ',', '.') }}₫</td>
     <td>{{ $item['soluong'] }}</td>
     <td>{{ number_format($item['tong_gia'], 0, ',', '.') }}₫</td>
+    <td>
+    <form action="/giohang/update" method="POST" style="display:inline-block">
+        <input type="hidden" name="item_id" value="{{ $item['id'] }}">
+        <button type="submit" name="action" value="decrease" class="btn btn-sm btn-secondary">-</button>
+        <span>{{ $item['soluong'] }}</span>
+        <button type="submit" name="action" value="increase" class="btn btn-sm btn-secondary">+</button>
+    </form>
+
+    <form action="/giohang/delete" method="POST" style="display:inline-block" onsubmit="return confirm('Bạn có chắc muốn xoá?');">
+        <input type="hidden" name="item_id" value="{{ $item['id'] }}">
+        <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
+    </form>
+</td>
+
 </tr>
 @endforeach
 

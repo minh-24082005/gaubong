@@ -194,7 +194,7 @@ public function register()
         $_SESSION['status'] = false;
         $_SESSION['msg'] = 'Đã xảy ra lỗi hệ thống!';
         $_SESSION['data'] = $_POST;
-        return redirect('/danhmuc');
+        return redirect('/');
     }
 }
 
