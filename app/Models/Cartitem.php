@@ -16,7 +16,8 @@ public function getCartItemsByUserId($userId)
         product.id AS product_id,
         product.ten AS product_name,
         product.hinhanh,
-        productvariant.kich_co
+        productvariant.kich_co,
+        productvariant.id AS id_bien
     ')
     ->from('cartitem')
     ->innerJoin('cartitem', 'cart', 'c', 'cartitem.id_giohang = c.id')
@@ -54,6 +55,10 @@ public function updateQuantity($id_cartitem, $new_quantity)
     ], [
         'id' => $id_cartitem
     ]);
+}
+
+public function deleteByCartId($cartId) {
+    return $this->connection->delete($this->tableName, ['id_giohang' => $cartId]);
 }
 
 }
