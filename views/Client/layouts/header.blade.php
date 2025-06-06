@@ -20,8 +20,8 @@
 
         {{-- Kiểm tra đăng nhập --}}
         @if(!empty($_SESSION['user']))
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item">
+          <a class="nav-link" href="/lich-su-don-hang">
             {{ $_SESSION['user']['name'] ?? 'User' }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
