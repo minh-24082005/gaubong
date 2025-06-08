@@ -84,11 +84,7 @@
                 {{ $_SESSION['error'] }}
             </div>
         @endif
-        @if (isset($_SESSION['success']))
-            <div class="alert alert-success">
-                {{ $_SESSION['success'] }}
-            </div>
-        @endif
+
         <div class="row justify-content-center">
             <div class="col-xl-7 ftco-animate">
                 <form action="/checkout/store" method="POST" class="billing-form" id="checkoutForm">
