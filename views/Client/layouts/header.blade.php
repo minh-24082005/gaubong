@@ -11,7 +11,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
         <li class="nav-item active"><a href="/danhmuc" class="nav-link">Danh mục</a></li>
-        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
         <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
         <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
         <li class="nav-item cta cta-colored">
