@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\Admin\ThongkeController;
 use App\Controllers\Admin\UserController;
 use App\Controllers\Admin\BannerController;
 use App\Controllers\Admin\BientheController;
@@ -7,6 +8,7 @@ use App\Controllers\Admin\CategoryController;
 use App\Controllers\Admin\ProductsController;
 use App\Controllers\Admin\DashboardController;
 use App\Controllers\Client\OrderHistoryController;
+
 
 $router->mount('/admin', fn: function () use ($router) {
     $router->get('/', DashboardController::class . '@index');
@@ -51,5 +53,7 @@ $router->mount('/admin', fn: function () use ($router) {
     $router->get('users/edit/{id}', UserController::class . '@edit');
     $router->post('/users/update/{id}', UserController::class . '@update');
     $router->get('users/delete/{id}', UserController::class . '@delete');
+
+    $router->get('/tonkho',ThongkeController::class . '@index');
 
 });

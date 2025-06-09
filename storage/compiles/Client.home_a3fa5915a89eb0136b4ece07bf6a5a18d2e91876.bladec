@@ -186,5 +186,4 @@
 </body>
 
 <?php $this->stopSection(); ?>
-
 <?php if (isset($_shouldextend[1])) { echo $this->runChild('Client.layouts.main'); } ?>
