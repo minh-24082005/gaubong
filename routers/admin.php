@@ -54,6 +54,6 @@ $router->mount('/admin', fn: function () use ($router) {
     $router->post('/users/update/{id}', UserController::class . '@update');
     $router->get('users/delete/{id}', UserController::class . '@delete');
 
-    $router->get('/tonkho',ThongkeController::class . '@index');
+    $router->get('/thongke',ThongkeController::class . '@index');
 
 });
