@@ -3,6 +3,8 @@
 use App\Controllers\Client\giohangController;
 use App\Controllers\Client\HomeController;
 use App\Controllers\Client\ChitietController;
+use App\Controllers\Client\ThanhtoanController;
+use App\Controllers\Client\OrderHistoryController;
 
 $router->get('/',HomeController::class.'@index');
 $router->get('/chitiet/{id}', ChitietController::class.'@index');
@@ -16,6 +18,10 @@ $router->post('/giohang/add', GiohangController::class.'@addToCart');
 $router->post('/giohang/update',GiohangController::class. '@updateQuantity');
 $router->post('/giohang/delete', GiohangController::class.'@removeItem');
 
+$router->get('/checkout', ThanhtoanController::class . '@index');
+$router->post('/checkout/store', ThanhtoanController::class . '@store');
+
+$router->get('/lich-su-don-hang', OrderHistoryController::class . '@index');
 
 
 $router->before('GET|POST', '/.*', function () {
