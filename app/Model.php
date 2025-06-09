@@ -13,6 +13,7 @@ class Model
         $connectionParams = [
             'dbname' => $_ENV['DB_NAME'],
             'user' => $_ENV['DB_USERNAME'],
+            'password' => $_ENV['DB_PASSWORD'],
             'host' => $_ENV['DB_HOST'],
             'driver' => $_ENV['DB_DRIVER'],
         ];
@@ -91,6 +92,17 @@ class Model
 
     public function commit()
     {
-        $this->connection->rollblack();
+        $this->connection->commit();
     }
+    public function where($column, $value)
+{
+    $qb = $this->connection->createQueryBuilder();
+    $qb->select('*')->from($this->tableName)->where("{$column} = :value")->setParameter('value', $value);
+    return $qb->fetchAllAssociative();
+}
+public function getConnection()
+{
+    return $this->connection;
+}
+
 }

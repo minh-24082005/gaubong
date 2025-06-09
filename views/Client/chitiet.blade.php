@@ -12,48 +12,82 @@
         </div>
       </div>         
     </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-lg-6 ftco-animate">
-          <img src="{{ file_url($product['p_hinhanh']) }}" alt="{{ $product['p_ten'] }}" class="img-fluid">
+    
+
+  <form id="variant-form" action="/giohang/add" enctype="multipart/form-data" method="POST">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-lg-6 ftco-animate">
+        <img src="{{ file_url($product['p_hinhanh']) }}" alt="{{ $product['p_ten'] }}" class="img-fluid rounded shadow-sm">
+      </div>
+      <div class="col-md-6 col-lg-6 ftco-animate">
+        <h3 class="mb-4">{{ $product['p_ten'] }}</h3>
+
+        <div class="mb-3">
+          <label for="kichco" class="form-label">Chọn kích cỡ</label>
+          <select id="kichco" name="variant_id" class="form-select">
+            @foreach ($variants as $variant)
+              <option 
+                value="{{ $variant['id'] }}" 
+                data-gia="{{ $variant['gia'] }}" 
+                data-soluong="{{ $variant['soluong'] }}">
+                  {{ $variant['kich_co'] }} cm
+              </option>
+            @endforeach
+          </select>
         </div>
-        <div class="col-md-6 col-lg-6 ftco-animate">
-          <h3>{{ $product['p_ten'] }}</h3>
-          
-<form id="variant-form">
-  <div class="form-group">
-    <label for="kichco">Chọn kích cỡ:</label>
-    <select id="kichco" class="form-control">
-      @foreach ($variants as $variant)
-        <option 
-          value="{{ $variant['id'] }}" 
-          data-gia="{{ $variant['gia'] }}" 
-          data-soluong="{{ $variant['soluong'] }}">
-            {{ $variant['kich_co'] }} cm
-        </option>
-      @endforeach
-    </select>
-  </div>
 
-  <p id="gia-hien-thi">
-    {{ isset($variants[0]) ? number_format($variants[0]['gia'], 0, ',', '.') . ' VND' : number_format($product['p_gia_coso'], 0, ',', '.') . ' VND' }}
-  </p>
-  <p id="soluong-hien-thi">
-    {{ isset($variants[0]) ? 'Số lượng: ' . $variants[0]['soluong'] : 'hết hàng' }}
-  </p>
+        <div class="mb-3">
+          <strong>Giá:</strong> 
+          <span id="gia-hien-thi" class="text-danger fw-bold">
+            {{ isset($variants[0]) ? number_format($variants[0]['gia'], 0, ',', '.') . ' VND' : number_format($product['p_gia_coso'], 0, ',', '.') . ' VND' }}
+          </span>
+        </div>
 
-  <div class="form-group">
-    <label for="so_luong">Chọn số lượng:</label>
-    <input type="number" id="so_luong" name="so_luong" class="form-control" min="0"
-           max="{{ isset($variants[0]) ? $variants[0]['soluong'] : 0 }}"
-           value="0">
-  </div>
+        <div class="mb-3">
+          <strong>Kho:</strong> 
+          <span id="soluong-hien-thi">
+            {{ isset($variants[0]) ? 'Số lượng: ' . $variants[0]['soluong'] : 'Hết hàng' }}
+          </span>
+        </div>
+<!-- THÊM VÀO TRONG <form> -->
+<input type="hidden" name="id_sanpham" value="{{ $product['p_id'] }}">
+<input type="hidden" name="id_user" value="{{ $_SESSION['user']['id'] ?? '' }}">
 
-  <button type="button" id="add-to-cart" class="btn btn-primary">Thêm vào giỏ hàng</button>
-  <div id="cart-message" class="mt-3 text-success" style="display: none;">
-    ✅ Đã thêm vào giỏ hàng thành công!
+        <div class="mb-3">
+          <label for="so_luong" class="form-label">Chọn số lượng</label>
+          <input type="number" id="so_luong" name="so_luong" class="form-control" min="1"
+                max="{{ isset($variants[0]) ? $variants[0]['soluong'] : 0 }}"
+                value="1">
+        </div>
+
+        <!-- Hidden inputs nếu cần -->
+        <input type="hidden" name="gia" id="gia-hidden" value="{{ $variants[0]['gia'] ?? 0 }}">
+        
+        <button type="submit" id="add-to-cart" class="btn btn-success btn-lg w-100 mt-3">
+          <i class="bi bi-cart-plus me-2"></i> Thêm vào giỏ hàng
+        </button>
+
+        <!-- Toast -->
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+          <div id="cart-toast" class="toast text-white bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+              <div class="toast-body">
+                ✅ Đã thêm vào giỏ hàng thành công!
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </form>
+@if(isset($_SESSION['user']))
+<h1>{{$_SESSION['user']['name']}}</h1>
+@endif
+
         </div>
       </div>
     </div>
@@ -110,12 +144,11 @@
         @endforeach
       </div>
 
-
 <script>
 document.getElementById('kichco').addEventListener('change', function () {
-    const selectedOption = this.options[this.selectedIndex];
-    const gia = selectedOption.getAttribute('data-gia');
-    const soluong = selectedOption.getAttribute('data-soluong');
+    const selected = this.options[this.selectedIndex];
+    const gia = selected.getAttribute('data-gia');
+    const soluong = selected.getAttribute('data-soluong');
 
     document.getElementById('gia-hien-thi').textContent = parseInt(gia).toLocaleString('vi-VN') + ' VND';
     document.getElementById('soluong-hien-thi').textContent = 'Số lượng: ' + soluong;
@@ -127,22 +160,20 @@ document.getElementById('kichco').addEventListener('change', function () {
     }
 });
 
-// ✅ Xử lý khi click nút "Thêm vào giỏ hàng"
+// ✅ Xử lý thêm vào giỏ hàng và toast
 document.getElementById('add-to-cart').addEventListener('click', function () {
-    // Hiển thị thông báo
-    const message = document.getElementById('cart-message');
-    message.style.display = 'block';
-    setTimeout(() => {
-        message.style.display = 'none';
-    }, 2500);
+    const toastEl = document.getElementById('cart-toast');
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
 
-    // 👉 Cập nhật số lượng trên icon giỏ hàng
+    // 👉 Cập nhật số lượng icon giỏ hàng
     const cartCountElement = document.getElementById('cart-count');
     let currentCount = parseInt(cartCountElement.textContent.replace(/\D/g, '')) || 0;
     let addedQuantity = parseInt(document.getElementById('so_luong').value) || 1;
-    let newCount = currentCount + addedQuantity;
-    cartCountElement.textContent = `[${newCount}]`;
+    cartCountElement.textContent = `[${currentCount + addedQuantity}]`;
 });
 </script>
+
+
 
 @endsection       

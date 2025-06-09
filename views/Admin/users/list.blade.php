@@ -81,8 +81,12 @@
                                             </td>
                                         </tr>
                                     @endforeach
+<<<<<<< HEAD
                                 </tbody>
                                 <tfoot>
+=======
+                                     <tfoot>
+>>>>>>> 49cabf14cf1e6fe6bfa55a1a941bc4796958edf7
                                     <tr>
                                         <th>STT</th>
                                         <th>Họ và tên</th>

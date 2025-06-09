@@ -44,14 +44,15 @@ public function bientheAll($page = 1, $limit = 10)
 
 public function find($id)
 {
-    $queryBuilder = $this->connection->createQueryBuilder();
-    $queryBuilder->select('*')
+    return $this->connection->createQueryBuilder()
+        ->select('*') // đảm bảo có id_sanpham
         ->from($this->tableName)
         ->where('id = :id')
-        ->setParameter('id', $id);
-    
-    return $queryBuilder->fetchAssociative();
+        ->setParameter('id', $id)
+        ->fetchAssociative();
 }
+
+
 
 // App\Models\Bienthe.php
 public function getByProductId($productId)
