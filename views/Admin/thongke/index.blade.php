@@ -1,4 +1,6 @@
-<h2>Thống kê tồn kho sản phẩm</h2>
+@extends('Admin.layout.sidebar')
+@section('content')
+    <h2>Thống kê tồn kho sản phẩm</h2>
 <table border="1" cellpadding="5">
     <tr>
         <th>id</th>
@@ -22,3 +24,5 @@
 
 
 </table>
+
+@endsection
