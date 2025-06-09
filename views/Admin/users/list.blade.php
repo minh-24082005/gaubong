@@ -56,7 +56,6 @@
                                         <tr>
 
                                             <td>{{ $index + 1 }}</td>
-                                           
                                             <td>{{ $user['name'] }}</td>
                                             <td>{{ $user['email'] }}</td>
                                             <td>{{ $user['dien_thoai'] }}</td>
@@ -81,13 +80,9 @@
                                             </td>
                                         </tr>
                                     @endforeach
-<<<<<<< HEAD
                                 </tbody>
                                 <tfoot>
-=======
-                                     <tfoot>
->>>>>>> 49cabf14cf1e6fe6bfa55a1a941bc4796958edf7
-                                    <tr>
+                                    <tr>    
                                         <th>STT</th>
                                         <th>Họ và tên</th>
                                         <th>Email</th>
