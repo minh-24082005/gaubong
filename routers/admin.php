@@ -1,13 +1,13 @@
 <?php
 
-use App\Controllers\Admin\ThongkeController;
+
 use App\Controllers\Admin\UserController;
 use App\Controllers\Admin\BannerController;
 use App\Controllers\Admin\BientheController;
 use App\Controllers\Admin\CategoryController;
 use App\Controllers\Admin\ProductsController;
 use App\Controllers\Admin\DashboardController;
-use App\Controllers\Client\OrderHistoryController;
+use App\Controllers\Admin\ThongkeController;
 
 
 $router->mount('/admin', fn: function () use ($router) {
