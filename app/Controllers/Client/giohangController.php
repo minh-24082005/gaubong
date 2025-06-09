@@ -138,9 +138,18 @@ class GiohangController extends Controller
             'tong_mathang' => $tong_mathang,
             'tong_gia' => $tong_gia,
         ]);
+        $_SESSION['toast'] = [
+    'msg' => '✅ Đã thêm vào giỏ hàng thành công!',
+    'type' => 'success'
+];
+header("Location: /chitiet/$id_sanpham");
+exit;
 
-        echo "✅ Thêm thành công!";
-        exit;
+
+
+
+
+        
     }
 
     public function updateQuantity()

@@ -1,0 +1,51 @@
+ <?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('content'); ?>
+ <h1>thêm danh sách danh mục</h1>
+<div class="row">
+ <div class="col-12 col-xl-8 mb-4 mb-lg-0">
+ <div class="card">
+ <h5 class="card-header">Latest transactions</h5>
+ <div class="card-body">
+ <div class="table-responsive">
+ <form action="/admin/categories/store" method="POST" enctype="multipart/form-data">
+ <div class="mb-3 row">
+ <label for="name" class="col-4 col-form-label">Name</label>
+ <div class="col-8">
+ <input type="text" class="form-control" name="ten" id="name"/>
+ </div>
+ </div>
+ <div class="mb-3 row">
+ <label for="name" class="col-4 col-form-label">miêu tả</label>
+ <div class="col-8">
+ 
+ <textarea name="mieuta" id="content" cols="30" rows="10"></textarea>
+ </div>
+ </div>
+
+
+ <div class="mb-3 row">
+ <div class="offset-sm-4 col-sm-8">
+ <button type="submit" class="btn btn-primary">
+ Submit
+ </button>
+
+ <a href="/admin/categories" class="btn btn-warning">
+ Back to list
+ </a>
+ </div>
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+ </div>
+ </table>
+<?php $this->stopSection(); ?>
+<?php $this->startSection('scripts'); ?>
+ <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
+ <script>
+ CKEDITOR.replace('content');
+ </script>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('Admin.layout.sidebar'); } ?>

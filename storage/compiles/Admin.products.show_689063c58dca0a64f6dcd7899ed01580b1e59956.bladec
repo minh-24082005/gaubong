@@ -1,0 +1,50 @@
+<?php $_shouldextend[1]=1; ?>
+
+<?php $this->startSection('content'); ?>
+<div class="container-fluid">
+ <h2 class="mb-4">Chi tiết sản phẩm</h2>
+
+ <div class="card shadow mb-4">
+ <div class="card-header d-flex justify-content-between align-items-center">
+ <h5 class="mb-0">Thông tin sản phẩm</h5>
+ <a href="/admin/users/create" class="btn btn-success btn-sm">
+ <i class="bi bi-plus-circle"></i> Tạo mới
+ </a>
+ </div>
+
+ <div class="card-body">
+ <div class="table-responsive">
+ <table class="table table-bordered align-middle">
+ <thead class="table-light">
+ <tr>
+ <th scope="col" style="width: 25%">Trường dữ liệu</th>
+ <th scope="col">Giá trị</th>
+ </tr>
+ </thead>
+ <tbody>
+ <?php $__currentLoopData = $product; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $field => $value): $loop = $this->incrementLoopIndices();  ?>
+ <tr>
+ <td class="fw-bold text-uppercase"><?php echo \htmlentities($field??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td>
+ <?php switch ($field) {
+ case ('p_hinhanh'): ?>
+ <img src="<?php echo \htmlentities(file_url($value)??'', ENT_QUOTES, 'UTF-8', false); ?>" width="200" class="img-thumbnail" alt="Hình ảnh sản phẩm">
+ <?php break; ?>
+
+ <?php default: ?>
+ <?php echo (($value)); ?>
+
+ <?php } // end switch ?>
+ </td>
+ </tr>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
+</div>
+<?php $this->stopSection(); ?>
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('admin.layout.sidebar'); } ?>
