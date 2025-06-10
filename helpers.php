@@ -100,4 +100,25 @@ if(!function_exists('file_url')){
             }
         }
     }
-    
+
+if (!function_exists('session')) {
+    function session($key = null, $default = null)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if ($key === null) {
+            return $_SESSION;
+        }
+
+        if (is_array($key)) {
+            foreach ($key as $k => $v) {
+                $_SESSION[$k] = $v;
+            }
+            return;
+        }
+
+        return $_SESSION[$key] ?? $default;
+    }
+}
