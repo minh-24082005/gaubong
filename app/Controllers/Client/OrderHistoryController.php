@@ -18,23 +18,25 @@ class OrderHistoryController extends Controller
         $this->banner = new Banner();
 
     }
-
-    public function index()
-    {
-        if (!isset($_SESSION['user'])) {
-            redirect('/login');
-            return;
-        }
-        $userId = $_SESSION['user']['id'];
-        // Lấy tất cả đơn hàng của user
-        $orders = $this->order->findAllByUser($userId);
-        // Lấy chi tiết từng đơn hàng
-        foreach ($orders as &$order) {
-            $order['items'] = $this->orderitem->findByOrderId($order['id']);
-        }
-        $banners = $this->banner->findAll();
-        return view('Client.order_history', ['orders' => $orders, 'banners' => $banners]);
+public function index()
+{
+    if (!isset($_SESSION['user'])) {
+        redirect('/login');
+        return;
     }
+
+    $userId = $_SESSION['user']['id'];
+    $orders = $this->order->findAllByUser($userId); // lấy tất cả đơn của user
+
+    foreach ($orders as &$order) {
+       $order['items'] = $this->orderitem->findDetailsByOrderId($order['id']);
+ // gắn từng item vào đơn
+    }
+
+    $banners = $this->banner->findAll();
+    return view('Client.order_history', compact('orders', 'banners'));
+}
+
     
     public function cancelOrder($id)
     {
