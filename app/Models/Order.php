@@ -95,4 +95,16 @@ class Order extends Model
 
         return $this->updateOrder($id, $data);
     }
+    public function findByUserId($userId)
+{
+    return $this->connection->createQueryBuilder()
+        ->select('*')
+        ->from($this->tableName)
+        ->where('id_KH = ?')
+        ->setParameter(0, $userId)
+        ->orderBy('ngay_caphat', 'DESC')
+        ->executeQuery()
+        ->fetchAllAssociative();
+}
+
 } 

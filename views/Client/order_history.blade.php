@@ -119,6 +119,7 @@
                 <thead>
                     <tr>
                         <th><i class="fas fa-receipt"></i> Mã đơn</th>
+                        <th><i class="fas fa-receipt"></i> tổng mặt hàng</th>
                         <th><i class="fas fa-calendar-alt"></i> Ngày đặt</th>
                         <th><i class="fas fa-info-circle"></i> Trạng thái</th>
                         <th><i class="fas fa-money-bill-wave"></i> Tổng tiền</th>
@@ -129,6 +130,7 @@
                 @foreach($orders as $order)
                     <tr>
                         <td>#{{ $order['id'] }}</td>
+                        <td>{{ $order['tong_mathang'] }}</td>
                         <td>{{ $order['ngay_capnhat'] }}</td>
                         <td>
                             @if($order['trangthai'] == 'xử lý')
@@ -182,8 +184,9 @@
                                     <thead>
                                         <tr>
                                             <th>Mã sản phẩm</th>
+                                            <th>ảnh</th>
                                             <th>Tên sản phẩm</th>
-                                            <th>Mã biến thể</th>
+                                            <th>kích thước</th>
                                             <th>Số lượng</th>
                                             <th>Giá</th>
                                             <th>Tổng</th>
@@ -193,8 +196,9 @@
                                         @foreach($order['items'] as $item)
                                             <tr>
                                                 <td>{{ $item['id_sanpham'] }}</td>
-                                                <td>{{ $item[''] }}</td>
-                                                <td>{{ $item['id_bien'] }}</td>
+                                                <td><img src="{{file_url($item['hinh_sanpham']) }}" alt="ảnh sản phẩm" style="width: 60px; height: auto;"></td>
+                                                <td>{{ $item['ten_sanpham'] }}</td>
+                                                <td>{{ $item['kich_co'] }}cm</td>
                                                 <td>{{ $item['soluong'] }}</td>
                                                 <td>{{ number_format($item['gia']) }}đ</td>
                                                 <td>{{ number_format($item['tong_gia']) }}đ</td>

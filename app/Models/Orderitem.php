@@ -35,4 +35,22 @@ class Orderitem extends Model
     {
         return $this->update($id, $data);
     }
+public function findDetailsByOrderId($orderId)
+{
+    $sql = "SELECT 
+                orderitem.*, 
+                product.ten AS ten_sanpham, 
+                product.hinhanh AS hinh_sanpham, 
+                productvariant.kich_co
+            FROM orderitem
+            JOIN productvariant ON productvariant.id = orderitem.id_bien
+            JOIN product ON product.id = productvariant.id_sanpham
+            WHERE orderitem.id_dathang = ?";
+
+    return $this->connection
+        ->executeQuery($sql, [$orderId])
+        ->fetchAllAssociative();
+}
+
+
 } 
