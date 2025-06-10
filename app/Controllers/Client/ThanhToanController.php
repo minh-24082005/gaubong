@@ -71,12 +71,13 @@ class ThanhToanController extends Controller
         foreach ($cartItems as $item) {
             $total += $item['tong_gia'];
         }
-
+ $banners = $this->banner->findAll();
         return view('Client.thanhtoan', [
             'cart' => $cart,
             'cartItems' => $cartItems,
             'total' => $total,
-            'user' => $user
+            'user' => $user,
+            'banners' => $banners
         ]);
     }
 

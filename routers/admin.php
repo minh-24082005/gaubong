@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Controllers\Admin\UserController;
 use App\Controllers\Admin\OrderController;
 use App\Controllers\Admin\BannerController;
@@ -8,6 +9,8 @@ use App\Controllers\Admin\CategoryController;
 use App\Controllers\Admin\ProductsController;
 use App\Controllers\Admin\DashboardController;
 use App\Controllers\Client\OrderHistoryController;
+use App\Controllers\Admin\ThongkeController;
+
 
 $router->mount('/admin', fn: function () use ($router) {
     $router->get('/', DashboardController::class . '@index');
@@ -57,4 +60,6 @@ $router->mount('/admin', fn: function () use ($router) {
     $router->get('/orders/{id}/show', OrderController::class . '@show');
     $router->post('/orders/{id}/update', OrderController::class . '@update');
     $router->get('/orders/{id}/edit', OrderController::class . '@edit');
+    $router->get('/thongke',ThongkeController::class . '@index');
+
 });

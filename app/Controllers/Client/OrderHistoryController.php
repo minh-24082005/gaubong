@@ -3,16 +3,20 @@ namespace App\Controllers\Client;
 use App\Controller;
 use App\Models\Order;
 use App\Models\Orderitem;
-
+use App\Models\Banner;
 class OrderHistoryController extends Controller
 {
     private Order $order;
     private Orderitem $orderitem;
+    private Banner $banner;
 
     public function __construct()
     {
+
         $this->order = new Order();
         $this->orderitem = new Orderitem();
+        $this->banner = new Banner();
+
     }
 
     public function index()
@@ -28,7 +32,8 @@ class OrderHistoryController extends Controller
         foreach ($orders as &$order) {
             $order['items'] = $this->orderitem->findByOrderId($order['id']);
         }
-        return view('Client.order_history', ['orders' => $orders]);
+        $banners = $this->banner->findAll();
+        return view('Client.order_history', ['orders' => $orders, 'banners' => $banners]);
     }
     
     public function cancelOrder($id)
@@ -61,4 +66,4 @@ class OrderHistoryController extends Controller
         
         redirect('/lich-su-don-hang');
     }
-} 
+}

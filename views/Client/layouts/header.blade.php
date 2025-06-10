@@ -11,7 +11,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
         <li class="nav-item active"><a href="/danhmuc" class="nav-link">Danh mục</a></li>
-        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
         <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
         <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
         <li class="nav-item cta cta-colored">
@@ -20,14 +20,17 @@
 
         {{-- Kiểm tra đăng nhập --}}
         @if(!empty($_SESSION['user']))
-        <li class="nav-item">
-          <a class="nav-link" href="/lich-su-don-hang">
-            {{ $_SESSION['user']['name'] ?? 'User' }}
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-            <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
-          </ul>
-        </li>
+
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    {{ $_SESSION['user']['name'] ?? 'User' }}
+  </a>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+    <li><a class="dropdown-item" href="/lich-su-don-hang">Lịch sử đơn hàng</a></li>
+    <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+  </ul>
+</li>
+
         @else
         <li class="nav-item active">
           <div class="container mt-2">
