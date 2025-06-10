@@ -44,4 +44,55 @@ class Order extends Model
             ->executeQuery()
             ->fetchAllAssociative();
     }
+    public function allOrders()
+    {
+        return $this->findAll();
+    }
+    // Lấy đơn hàng theo id
+    public function findOrder($id)
+    {
+        $order = $this->find($id);
+        if ($order) {
+            // Đảm bảo key id_KH tồn tại
+            $order['id_KH'] = $order['id_KH'] ?? null;
+        }
+        return $order;
+    }
+    // Cập nhật đơn hàng
+    public function updateOrder($id, $data)
+    {
+        return $this->update($id, $data);
+    }
+    // Lấy chi tiết đơn hàng cùng các item
+    public function getOrderWithItems($id)
+    {
+        $order = $this->find($id);
+        if ($order) {
+            $orderitem = new \App\Models\Orderitem();
+            $order['items'] = $orderitem->getByOrderId($id);
+        }
+        return $order;
+    }
+
+    public function cancelOrder($id, $userId)
+    {
+        // Kiểm tra đơn hàng tồn tại và thuộc về user
+        $order = $this->findOrder($id);
+        if (!$order || $order['id_khachhang'] != $userId) {
+            return false;
+        }
+
+        // Kiểm tra trạng thái đơn hàng
+        if ($order['trangthai'] !== 'xử lý') {
+            return false;
+        }
+
+        // Cập nhật trạng thái đơn hàng
+        $data = [
+            'trangthai' => 'đã hủy',
+            'ngay_capnhat' => date('Y-m-d H:i:s')
+        ];
+
+        return $this->updateOrder($id, $data);
+    }
 } 

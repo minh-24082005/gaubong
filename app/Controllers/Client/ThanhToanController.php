@@ -37,50 +37,49 @@ class ThanhToanController extends Controller
         $this->orderitem = new Orderitem();
         $this->payment = new Payment();
     }
-public function index()
-{
-    if (!isset($_SESSION['user'])) {
-        redirect('/login');
-        return;
+
+    public function index()
+    {
+        if (!isset($_SESSION['user'])) {
+            redirect('/login');
+            return;
+        }
+
+        $userId = $_SESSION['user']['id'];
+        // lấy tất cả thông tin người dùng
+        $user = $this->user->find($userId);
+
+
+        
+        // Lấy thông tin giỏ hàng của user
+        $cart = $this->cart->where('id_KH', $userId);
+        
+        if (!$cart) {
+            // Nếu chưa có giỏ hàng, tạo mới
+            $cartId = $this->cart->insertGetId([
+                'id_KH' => $userId,
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+            $cart = ['id' => $cartId];
+        }
+
+        // Lấy chi tiết giỏ hàng
+        $cartItems = $this->cartitem->getCartItemsByUserId($userId);
+        
+        // Tính tổng tiền
+        $total = 0;
+        foreach ($cartItems as $item) {
+            $total += $item['tong_gia'];
+        }
+ $banners = $this->banner->findAll();
+        return view('Client.thanhtoan', [
+            'cart' => $cart,
+            'cartItems' => $cartItems,
+            'total' => $total,
+            'user' => $user,
+            'banners' => $banners
+        ]);
     }
-
-    $userId = $_SESSION['user']['id'];
-    $user = $this->user->find($userId);
-
-    // Lấy thông tin giỏ hàng của user
-    $cart = $this->cart->where('id_KH', $userId);
-
-    if (!$cart) {
-        // 👉 Nếu chưa có giỏ hàng, chuyển hướng về trang giỏ hàng
-        redirect('/giohang');
-        return;
-    }
-
-    // Lấy chi tiết giỏ hàng
-    $cartItems = $this->cartitem->getCartItemsByUserId($userId);
-
-    // Nếu giỏ hàng có rồi nhưng không có sản phẩm thì cũng chuyển hướng
-    if (empty($cartItems)) {
-        redirect('/giohang');
-        return;
-    }
-
-    // Tính tổng tiền
-    $total = 0;
-    foreach ($cartItems as $item) {
-        $total += $item['tong_gia'];
-    }
-
-    $banners = $this->banner->findAll();
-
-    return view('Client.thanhtoan', [
-        'cart' => $cart,
-        'cartItems' => $cartItems,
-        'total' => $total,
-        'user' => $user,
-        'banners' => $banners
-    ]);
-}
 
     public function store()
     {
