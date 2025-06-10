@@ -5,6 +5,7 @@ use App\Controllers\Client\ChitietController;
 use App\Controllers\Client\giohangController;
 use App\Controllers\Client\ThanhtoanController;
 use App\Controllers\Client\OrderHistoryController;
+use App\Controllers\Client\TrangconController;
 
 $router->get('/',HomeController::class.'@index');
 $router->get('/chitiet/{id}', ChitietController::class.'@index');
@@ -20,8 +21,13 @@ $router->post('/giohang/delete', GiohangController::class.'@removeItem');
 
 $router->get('/checkout', ThanhtoanController::class.'@index');
 $router->post('/checkout/store', ThanhtoanController::class.'@store');
-
 $router->get('/lich-su-don-hang', OrderHistoryController::class . '@index');
+
+
+$router->get('about',TrangconController::class.'@about');
+$router->get('blog',TrangconController::class.'@blog');
+$router->get('contact',TrangconController::class.'@contact');
+
 
 
 
