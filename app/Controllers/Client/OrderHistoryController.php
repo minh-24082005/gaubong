@@ -30,4 +30,35 @@ class OrderHistoryController extends Controller
         }
         return view('Client.order_history', ['orders' => $orders]);
     }
+    
+    public function cancelOrder($id)
+    {
+        if (!isset($_SESSION['user'])) {
+            $_SESSION['error'] = 'Vui lòng đăng nhập để thực hiện chức năng này';
+            redirect('/login');
+            return;
+        }
+
+        $userId = $_SESSION['user']['id'];
+        
+        try {
+            // Sử dụng phương thức cancelOrder từ model Order
+            $result = $this->order->cancelOrder($id, $userId);
+            
+            if ($result) {
+                $_SESSION['success'] = 'Hủy đơn hàng thành công';
+            } else {
+                $_SESSION['error'] = 'Không thể hủy đơn hàng. Vui lòng kiểm tra lại trạng thái đơn hàng.';
+            }
+            $data = [
+                'trangthai' => 'đã hủy',
+                'ngay_capnhat' => date('Y-m-d H:i:s')
+            ];
+            $this->order->updateOrder($id, $data);
+        } catch (\Exception $e) {
+            $_SESSION['error'] = 'Có lỗi xảy ra: ' . $e->getMessage();
+        }
+        
+        redirect('/lich-su-don-hang');
+    }
 } 

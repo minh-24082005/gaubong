@@ -36,4 +36,68 @@ class User extends Model{
         $result=$queryBuilder->fetchAssociative();
         return $result;
     }
+
+    public function hasRelatedData($userId)
+    {
+        // Kiểm tra trong bảng cart
+        $cartCount = $this->connection->createQueryBuilder()
+            ->select('COUNT(*)')
+            ->from('cart')
+            ->where('id_KH = ?')
+            ->setParameter(0, $userId)
+            ->executeQuery()
+            ->fetchOne();
+
+        // Kiểm tra trong bảng orders
+        $orderCount = $this->connection->createQueryBuilder()
+            ->select('COUNT(*)')
+            ->from('orders')
+            ->where('id_khachhang = ?')
+            ->setParameter(0, $userId)
+            ->executeQuery()
+            ->fetchOne();
+
+        // Nếu có dữ liệu trong bất kỳ bảng nào
+        return ($cartCount > 0 || $orderCount > 0);
+    }
+
+    public function deleteRelatedData($userId)
+    {
+        // Xóa dữ liệu trong bảng cart
+        $this->connection->createQueryBuilder()
+            ->delete('cart')
+            ->where('id_KH = ?')
+            ->setParameter(0, $userId)
+            ->executeQuery();
+
+        // Xóa dữ liệu trong bảng orders
+        $this->connection->createQueryBuilder()
+            ->delete('orders')
+            ->where('id_khachhang = ?')
+            ->setParameter(0, $userId)
+            ->executeQuery();
+    }
+
+    public function delete($id)
+    {
+        try {
+            // Bắt đầu transaction
+            $this->connection->beginTransaction();
+
+            // Xóa dữ liệu liên quan
+            $this->deleteRelatedData($id);
+
+            // Xóa người dùng
+            $result = parent::delete($id);
+
+            // Commit transaction
+            $this->connection->commit();
+
+            return $result;
+        } catch (\Exception $e) {
+            // Rollback nếu có lỗi
+            $this->connection->rollBack();
+            throw $e;
+        }
+    }
 }

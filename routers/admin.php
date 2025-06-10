@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\Admin\UserController;
+use App\Controllers\Admin\OrderController;
 use App\Controllers\Admin\BannerController;
 use App\Controllers\Admin\BientheController;
 use App\Controllers\Admin\CategoryController;
@@ -52,4 +53,8 @@ $router->mount('/admin', fn: function () use ($router) {
     $router->post('/users/update/{id}', UserController::class . '@update');
     $router->get('users/delete/{id}', UserController::class . '@delete');
 
+    $router->get('/orders', OrderController::class . '@index');
+    $router->get('/orders/{id}/show', OrderController::class . '@show');
+    $router->post('/orders/{id}/update', OrderController::class . '@update');
+    $router->get('/orders/{id}/edit', OrderController::class . '@edit');
 });

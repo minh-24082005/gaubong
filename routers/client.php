@@ -22,7 +22,7 @@ $router->get('/checkout', ThanhtoanController::class.'@index');
 $router->post('/checkout/store', ThanhtoanController::class.'@store');
 
 $router->get('/lich-su-don-hang', OrderHistoryController::class . '@index');
-
+$router->post('/cancel-order/{id}', OrderHistoryController::class . '@cancelOrder');
 
 
 

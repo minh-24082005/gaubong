@@ -75,9 +75,9 @@
                                                 <a href="/admin/users/edit/{{ $user['id'] }}"
                                                     class="btn btn-warning text-light">Edit<i
                                                         class="fa-solid fa-pen-to-square"></i></a>
-                                                <a onclick="return confirm('Bạn có muốn xóa không?')"
+                                                {{-- <a onclick="return confirm('Bạn có muốn xóa không?')"
                                                     href="/admin/users/delete/{{ $user['id'] }}"
-                                                    class="btn btn-danger">Delete<i class="fa-solid fa-trash-can"></i></a>
+                                                    class="btn btn-danger">Delete<i class="fa-solid fa-trash-can"></i></a> --}}
                                             </td>
                                         </tr>
                                     @endforeach
