@@ -185,15 +185,28 @@ class UserController extends Controller
 
     public function delete($id)
     {
-        $user = $this->user->find($id);
-        if (empty($user)) {
-            redirect404();
-        }
-        $this->user->delete($id);
-       
-        $_SESSION['status'] = true;
-        $_SESSION['msg'] = 'Xóa dữ liệu thành công';
+        try {
+            $user = $this->user->find($id);
+            if (empty($user)) {
+                redirect404();
+            }
 
-        redirect('/admin/users');
+            // Xóa người dùng và dữ liệu liên quan
+            $result = $this->user->delete($id);
+            
+            if ($result) {
+                $_SESSION['status'] = true;
+                $_SESSION['msg'] = 'Xóa người dùng thành công';
+            } else {
+                $_SESSION['status'] = false;
+                $_SESSION['msg'] = 'Không thể xóa người dùng';
+            }
+
+            redirect('/admin/users');
+        } catch (\Exception $e) {
+            $_SESSION['status'] = false;
+            $_SESSION['msg'] = 'Có lỗi xảy ra khi xóa người dùng: ' . $e->getMessage();
+            redirect('/admin/users');
+        }
     }
 }
