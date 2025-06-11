@@ -27,6 +27,12 @@
   </a>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
     <li><a class="dropdown-item" href="/lich-su-don-hang">Lịch sử đơn hàng</a></li>
+
+    {{-- Nếu là admin thì hiện link vào trang quản trị --}}
+    @if($_SESSION['user']['type'] === 'admin')
+      <li><a class="dropdown-item" href="/admin">Vào trang quản trị</a></li>
+    @endif
+
     <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
   </ul>
 </li>
